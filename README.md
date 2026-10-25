@@ -44,7 +44,7 @@ The server is deployed on an AWS EC2 instance in Tokyo (`ap-northeast-1`). Websi
                                                            └──────────────────────────────────┘
 ```
 
-The full diagram is in [`docs/pacjet_journey.png`](docs/vpn_architecture.png).
+The full diagram is in [`docs/packet_journey.png`](docs/packet_journey.png).
 
 ### Handshake
 
