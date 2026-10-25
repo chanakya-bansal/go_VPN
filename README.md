@@ -1,4 +1,4 @@
-# govpn: An Encrypted VPN Built from Scratch in Go
+# govpn: An Encrypted VPN Built in Go
 
 A working VPN written in Go for the Computer Networks course. A client captures raw IP packets from a virtual network interface (TUN), encrypts them, and sends them over UDP to a server. The server decrypts them and forwards them to the internet using NAT. Keys are agreed using an **X25519 Diffie-Hellman handshake**, and traffic is protected with **ChaCha20-Poly1305**.
 
@@ -44,7 +44,7 @@ The server is deployed on an AWS EC2 instance in Tokyo (`ap-northeast-1`). Websi
                                                            └──────────────────────────────────┘
 ```
 
-The full diagram is in [`docs/vpn_architecture.png`](docs/vpn_architecture.png).
+The full diagram is in [`docs/pacjet_journey.png`](docs/vpn_architecture.png).
 
 ### Handshake
 
@@ -97,7 +97,7 @@ go_VPN/
 ├── scripts/
 │   └── netns-test.sh      # creates the fake client machine (network namespace)
 ├── docs/                  # diagrams
-├── screenshots/           # test evidence
+├── F2_team12_screenshots/           # test evidence
 ├── go.mod / go.sum
 ├── Makefile
 └── README.md
@@ -269,7 +269,7 @@ This needs the non-snap build of Firefox (the snap version fails inside a networ
 
 ## Testing Results
 
-Screenshots are in [`screenshots/`](screenshots/).
+Screenshots are in [`F2_team12_screenshots/`](F2_team12_screenshots/).
 
 ### Local test (client in a namespace, server on the host)
 
@@ -283,18 +283,6 @@ Screenshots are in [`screenshots/`](screenshots/).
 | Packet capture on `vpn-s0` | Plain ICMP echo request and reply, confirming correct decryption |
 | Wrong PSK | Five handshake attempts rejected with `bad MAC`. Client exited after about 10 s |
 
-### Tokyo deployment
-
-Fill in after running on EC2:
-
-| Measurement | Without VPN | With VPN (Tokyo) |
-|---|---|---|
-| Public IP (`ifconfig.me`) |  |  |
-| Country (`ipinfo.io/country`) |  | JP |
-| `ping 1.1.1.1` average (ms) |  |  |
-| YouTube region | | Japan |
-
-Screenshots to add: `systemctl status vpn-server` showing `active (running)`, the `ipinfo.io` result with the Tokyo IP, and Firefox playing YouTube through the tunnel.
 
 ## Security Design
 
@@ -314,7 +302,6 @@ Screenshots to add: `systemctl status vpn-server` showing `active (running)`, th
 
 - **Replay protection:** nothing rejects a replayed data packet yet. A sliding window of counters is planned.
 - **Hello replay:** an old ClientHello can be replayed, which can reset the session (a denial of service, but it reveals no keys). Timestamp checks are planned.
-- **Single client:** the server holds one session. A session table with per-client virtual IPs is planned.
 - **No keepalive, rekeying or reconnect:** the tunnel stalls if idle for too long, and the client must be restarted after a server restart.
 - **IPv4 only:** IPv6 traffic is not tunnelled, which can leak if the client has IPv6.
 - **Linux client only:** a native Windows client (Wintun) is planned.
@@ -325,8 +312,8 @@ Screenshots to add: `systemctl status vpn-server` showing `active (running)`, th
 
 | Name | Registration No. | Contribution |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
+| Chanakya Bansal | 24BCE0694 | Server side Code  |
+| Soumalya Kuila | 24BCE0621 | Client side Code |
+| Lakshya KulShreshtha | 24BCT0299 | Shell Setup Scripts |
 
 Course: Computer Networks. Institution: VIT Vellore.
